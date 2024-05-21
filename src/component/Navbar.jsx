@@ -20,7 +20,7 @@ export function Navbar() {
         onClick={() => navigate("/write")}
         cursor={"pointer"}
         _hover={{
-          bgColor: "yellow.200",
+          bgColor: "red.200",
         }}
       >
         글쓰기
