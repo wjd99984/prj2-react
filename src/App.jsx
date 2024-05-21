@@ -4,16 +4,19 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home } from "./page/Home.jsx";
 import { BoardWrite } from "./page/board/BoardWrite.jsx";
 import { BoardList } from "./page/board/BoardList.jsx";
-import { Boardview } from "./page/board/Boardview.jsx";
+import { BoardView } from "./page/board/BoardView.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
     children: [
-      { index: true, element: <BoardList /> },
+      {
+        index: true,
+        element: <BoardList />,
+      },
       { path: "write", element: <BoardWrite /> },
-      { path: "view", element: <Boardview /> },
+      { path: "board/:id", element: <BoardView /> },
     ],
   },
 ]);
