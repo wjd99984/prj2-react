@@ -11,7 +11,7 @@ export function Navbar() {
         onClick={() => navigate("/")}
         cursor={"pointer"}
         _hover={{
-          bgColor: "gray.200",
+          bgColor: "yellow.200",
         }}
       >
         HOME
@@ -20,7 +20,7 @@ export function Navbar() {
         onClick={() => navigate("/write")}
         cursor={"pointer"}
         _hover={{
-          bgColor: "gray.200",
+          bgColor: "yellow.200",
         }}
       >
         글쓰기

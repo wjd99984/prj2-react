@@ -83,7 +83,7 @@ export function BoardWrite() {
         <Box>
           <Button
             isDisabled={disableSaveButton}
-            colorScheme={"blue"}
+            colorScheme={"blue.400"}
             onClick={handleSaveClick}
           >
             저장

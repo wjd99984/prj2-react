@@ -1,9 +1,6 @@
-import { Box, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { faUserPen } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Box } from "@chakra-ui/react";
 
 export function BoardList() {
   const [boardList, setBoardList] = useState([]);
@@ -30,7 +27,7 @@ export function BoardList() {
             {boardList.map((board) => (
               <Tr
                 _hover={{
-                  bgColor: "bule.300",
+                  bgColor: "green.400",
                 }}
                 cursor={"pointer"}
                 onClick={() => navigate(`/board/${board.id}`)}
