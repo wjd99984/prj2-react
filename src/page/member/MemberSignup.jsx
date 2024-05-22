@@ -1,6 +1,16 @@
-import { Box, Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  InputGroup,
+  InputRightElement,
+  useToast,
+} from "@chakra-ui/react";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export function MemberSignup() {
   const [email, setEmail] = useState("");
@@ -17,31 +27,53 @@ export function MemberSignup() {
       .then((res) => {
         toast({
           status: "success",
-          description: "회원가입이 완료되었습니다",
+          description: "회원 가입이 완료되었습니다.",
           position: "top",
         });
-        //todo 로그인 화면으로 이동
-        navigator("/");
+        // todo : 로그인 화면으로 이동
+        navigate("/");
       })
-      .catch(
-        ((err) => {
-          if (err.response && err.response.status === 400) {
-            toast({
-              status: "error",
-              description: "입력값을 확인해 주세요",
-              position: "top",
-            });
-          } else {
-            toast({
-              status: "error",
-              description: "회원가입중 문제가 발생되었습니다",
-              position: "top",
-            });
-          }
-        }).finally(() => {
-          setIsLoading(false);
-        }),
-      );
+      .catch((err) => {
+        if (err.response.status === 400) {
+          toast({
+            status: "error",
+            description: "입력값을 확인해 주세요.",
+            position: "top",
+          });
+        } else {
+          toast({
+            status: "error",
+            description: "회원 가입 중 문제가 발생하였습니다.",
+            position: "top",
+          });
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
+
+  function handleCheckEmail() {
+    axios
+      .get(`/api/member/check?email=${email}`)
+      .then((res) => {
+        toast({
+          status: "warning",
+          description: "사용할 수 없는 이메일입니다.",
+          position: "top",
+        });
+      }) // 이미 있는 이메일 (사용 못함)
+      .catch((err) => {
+        if (err.response.status === 404) {
+          // 사용할 수 있는 이메일
+          toast({
+            status: "info",
+            description: "사용할 수 있는 이메일입니다.",
+            position: "top",
+          });
+        }
+      })
+      .finally();
   }
 
   return (
@@ -51,7 +83,14 @@ export function MemberSignup() {
         <Box>
           <FormControl>
             <FormLabel>이메일</FormLabel>
-            <Input onChange={(e) => setEmail(e.target.value)} />
+            <InputGroup>
+              <Input onChange={(e) => setEmail(e.target.value)} />
+              <InputRightElement w={"75px"} mr={1}>
+                <Button onClick={handleCheckEmail} size={"sm"}>
+                  중복확인
+                </Button>
+              </InputRightElement>
+            </InputGroup>
           </FormControl>
         </Box>
         <Box>
@@ -69,8 +108,8 @@ export function MemberSignup() {
         <Box>
           <Button
             isLoading={isLoading}
-            onClick={handleClick}
             colorScheme={"blue"}
+            onClick={handleClick}
           >
             가입
           </Button>
