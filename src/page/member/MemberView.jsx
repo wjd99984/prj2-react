@@ -65,6 +65,8 @@ export function MemberView() {
       })
       .finally(() => {
         setIsLoading(false);
+        setPassword("");
+        onClose();
       });
   }
 
