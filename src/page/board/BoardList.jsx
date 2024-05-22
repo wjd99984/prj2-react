@@ -1,16 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import {
-  Box,
-  FormControl,
-  Input,
-  Table,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
+import { Box, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPen } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
@@ -56,16 +46,7 @@ export function BoardList() {
                 <Td>{board.id}</Td>
                 <Td>{board.title}</Td>
                 <Td>{board.writer}</Td>
-                <Td>
-                  <Box>
-                    <FormControl>작성일시</FormControl>
-                    <Input
-                      type={"datetime-local"}
-                      value={board.inserted.replace(" ", "T")}
-                      readOnly
-                    />
-                  </Box>
-                </Td>
+                <Td>{board.inserted}</Td>
               </Tr>
             ))}
           </Tbody>

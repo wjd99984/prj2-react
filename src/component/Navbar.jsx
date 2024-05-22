@@ -11,7 +11,7 @@ export function Navbar() {
         onClick={() => navigate("/")}
         cursor={"pointer"}
         _hover={{
-          bgColor: "yellow.200",
+          bgColor: "gray.200",
         }}
       >
         HOME
@@ -20,10 +20,19 @@ export function Navbar() {
         onClick={() => navigate("/write")}
         cursor={"pointer"}
         _hover={{
-          bgColor: "red.200",
+          bgColor: "gray.200",
         }}
       >
         글쓰기
+      </Box>
+      <Box
+        onClick={() => navigate("/signup")}
+        cursor={"pointer"}
+        _hover={{
+          bgColor: "gray.200",
+        }}
+      >
+        회원가입
       </Box>
     </Flex>
   );
