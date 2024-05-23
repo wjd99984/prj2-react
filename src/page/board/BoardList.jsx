@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import { Box, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from "react";
 import { faUserPen } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export function BoardList() {
@@ -10,14 +10,9 @@ export function BoardList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("/api/board/list").then((res) => {
-      const formattedData = res.data.map((board) => ({
-        ...board,
-        inserted: new Date(board.inserted).toISOString().slice(0, 16), // UTC 형식으로 변환
-      }));
-      setBoardList(formattedData);
-    });
+    axios.get("/api/board/list").then((res) => setBoardList(res.data));
   }, []);
+
   return (
     <Box>
       <Box>게시물 목록</Box>
@@ -30,14 +25,13 @@ export function BoardList() {
               <Th>
                 <FontAwesomeIcon icon={faUserPen} />
               </Th>
-              <Th>작성일시</Th>
             </Tr>
           </Thead>
           <Tbody>
             {boardList.map((board) => (
               <Tr
                 _hover={{
-                  bgColor: "green.400",
+                  bgColor: "gray.200",
                 }}
                 cursor={"pointer"}
                 onClick={() => navigate(`/board/${board.id}`)}
@@ -46,7 +40,6 @@ export function BoardList() {
                 <Td>{board.id}</Td>
                 <Td>{board.title}</Td>
                 <Td>{board.writer}</Td>
-                <Td>{board.inserted}</Td>
               </Tr>
             ))}
           </Tbody>
