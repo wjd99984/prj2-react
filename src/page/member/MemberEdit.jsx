@@ -5,6 +5,12 @@ import {
   FormHelperText,
   FormLabel,
   Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Spinner,
   useDisclosure,
   useToast,
@@ -15,6 +21,8 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export function MemberEdit() {
   const [member, setMember] = useState(null);
+  const [oldPassword, setOldPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
   const { id } = useParams();
   const toast = useToast();
   const navigate = useNavigate();
@@ -39,7 +47,7 @@ export function MemberEdit() {
 
   function handleClickSave() {
     axios
-      .put("/api/member/modify", member)
+      .put("/api/member/modify", { ...member, oldPassword })
       .then((res) => {})
       .catch(() => {})
       .finally(() => {});
@@ -47,6 +55,12 @@ export function MemberEdit() {
 
   if (member === null) {
     return <Spinner />;
+  }
+
+  let isDisableSaveButton = false;
+
+  if (member.password !== passwordCheck) {
+    isDisableSaveButton = true;
   }
 
   return (
@@ -76,7 +90,10 @@ export function MemberEdit() {
         <Box>
           <FormControl>
             <FormLabel>암호 확인</FormLabel>
-            <Input />
+            <Input onChange={(e) => setPasswordCheck(e.target.value)} />
+            {member.password === passwordCheck || (
+              <FormHelperText>암호가 일치하지 않습니다.</FormHelperText>
+            )}
           </FormControl>
         </Box>
         <Box>
@@ -87,11 +104,33 @@ export function MemberEdit() {
           />
         </Box>
         <Box>
-          <Button onClick={handleClickSave} colorScheme={"blue"}>
+          <Button
+            isDisabled={isDisableSaveButton}
+            onClick={onOpen}
+            colorScheme={"blue"}
+          >
             저장
           </Button>
         </Box>
       </Box>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>기존 암호 확인</ModalHeader>
+          <ModalBody>
+            <FormControl>
+              <FormLabel>기존 암호</FormLabel>
+              <Input onChange={(e) => setOldPassword(e.target.value)} />
+            </FormControl>
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={onClose}>취소</Button>
+            <Button colorScheme="blue" onClick={handleClickSave}>
+              확인
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 }
