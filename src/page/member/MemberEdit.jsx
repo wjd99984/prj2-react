@@ -56,15 +56,15 @@ export function MemberEdit() {
       .then((res) => {
         toast({
           status: "success",
-          description: "회원정보 수정",
+          description: "회원 정보가 수정되었습니다.",
           position: "top",
         });
-        navigate("/member/modify");
+        navigate(`/member/${id}`);
       })
       .catch(() => {
         toast({
           status: "error",
-          description: "회원정보 수정 실패",
+          description: "회원 정보가 수정되지 않았습니다.",
           position: "top",
         });
       })
