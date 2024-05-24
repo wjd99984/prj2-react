@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import { customAxios as axios } from "../../axiosInstance.jsx";
 import {
   Box,
   Button,
@@ -46,11 +46,7 @@ export function BoardView() {
 
   function handleClickRemove() {
     axios
-      .delete(`/api/board/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
+      .delete(`/api/board/${id}`)
       .then(() => {
         toast({
           status: "success",

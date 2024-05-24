@@ -2,7 +2,7 @@ import { Box, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { faUserPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
+import { customAxios as axios } from "../../axiosInstance.jsx";
 import { useNavigate } from "react-router-dom";
 
 export function BoardList() {

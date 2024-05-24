@@ -8,7 +8,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
-import axios from "axios";
+import { customAxios as axios } from "../../axiosInstance.jsx";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../../component/LoginProvider.jsx";
 
@@ -23,18 +23,10 @@ export function BoardWrite() {
   function handleSaveClick() {
     setLoading(true);
     axios
-      .post(
-        "/api/board/add",
-        {
-          title,
-          content,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        },
-      )
+      .post("/api/board/add", {
+        title,
+        content,
+      })
       .then(() => {
         toast({
           description: "새 글이 등록되었습니다.",
