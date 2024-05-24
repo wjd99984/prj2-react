@@ -11,6 +11,7 @@ import {
   ModalBody,
   ModalContent,
   ModalFooter,
+  ModalHeader,
   ModalOverlay,
   Spinner,
   Textarea,
@@ -43,11 +44,15 @@ export function BoardView() {
 
   function handleClickRemove() {
     axios
-      .delete(`/api/board/${id}`)
+      .delete(`/api/board/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then(() => {
         toast({
           status: "success",
-          description: "${id}번 게시물이 삭제되었습니다.",
+          description: `${id}번 게시물이 삭제되었습니다.`,
           position: "top",
         });
         navigate("/");
@@ -55,7 +60,7 @@ export function BoardView() {
       .catch(() => {
         toast({
           status: "error",
-          description: `${id}번 게시물 삭제중 오류가 발생하였습니다`,
+          description: `${id}번 게시물 삭제 중 오류가 발생하였습니다.`,
           position: "top",
         });
       })
@@ -108,6 +113,7 @@ export function BoardView() {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
+          <ModalHeader></ModalHeader>
           <ModalBody>삭제하시겠습니까?</ModalBody>
           <ModalFooter>
             <Button onClick={onClose}>취소</Button>
