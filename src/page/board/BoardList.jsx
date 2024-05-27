@@ -38,6 +38,15 @@ export function BoardList() {
       setBoardList(res.data.boardList);
       setPageInfo(res.data.pageInfo);
     });
+
+    const typeParam = searchParams.get("type");
+    const keywordParam = searchParams.get("keyword");
+    if (typeParam) {
+      setSearchType(typeParam);
+    }
+    if (keywordParam) {
+      setSearchKeyword(keywordParam);
+    }
   }, [searchParams]);
 
   const pageNumbers = [];
@@ -53,38 +62,44 @@ export function BoardList() {
     <Box>
       <Box>게시물 목록</Box>
       <Box>
-        <Table>
-          <Thead>
-            <Tr>
-              <Th>#</Th>
-              <Th>TITLE</Th>
-              <Th>
-                <FontAwesomeIcon icon={faUserPen} />
-              </Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {boardList.map((board) => (
-              <Tr
-                _hover={{
-                  bgColor: "gray.200",
-                }}
-                cursor={"pointer"}
-                onClick={() => navigate(`/board/${board.id}`)}
-                key={board.id}
-              >
-                <Td>{board.id}</Td>
-                <Td>{board.title}</Td>
-                <Td>{board.writer}</Td>
+        {boardList.length === 0 && <Center>조회 결과가 없습니다.</Center>}
+        {boardList.length > 0 && (
+          <Table>
+            <Thead>
+              <Tr>
+                <Th>#</Th>
+                <Th>TITLE</Th>
+                <Th>
+                  <FontAwesomeIcon icon={faUserPen} />
+                </Th>
               </Tr>
-            ))}
-          </Tbody>
-        </Table>
+            </Thead>
+            <Tbody>
+              {boardList.map((board) => (
+                <Tr
+                  _hover={{
+                    bgColor: "gray.200",
+                  }}
+                  cursor={"pointer"}
+                  onClick={() => navigate(`/board/${board.id}`)}
+                  key={board.id}
+                >
+                  <Td>{board.id}</Td>
+                  <Td>{board.title}</Td>
+                  <Td>{board.writer}</Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        )}
       </Box>
       <Center>
         <Flex>
           <Box>
-            <Select onChange={(e) => setSearchType(e.target.value)}>
+            <Select
+              value={searchType}
+              onChange={(e) => setSearchType(e.target.value)}
+            >
               <option value="all">전체</option>
               <option value="text">글</option>
               <option value="nickName">작성자</option>
@@ -92,6 +107,7 @@ export function BoardList() {
           </Box>
           <Box>
             <Input
+              value={searchKeyword}
               onChange={(e) => setSearchKeyword(e.target.value)}
               placeholder="검색어"
             />
