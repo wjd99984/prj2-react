@@ -20,7 +20,7 @@ export function Navbar() {
       >
         HOME
       </Box>
-      {account.isLoggedIn() && (
+      {account.isAdmin() && (
         <Box
           onClick={() => navigate("/write")}
           cursor={"pointer"}
