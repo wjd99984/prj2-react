@@ -9,7 +9,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { customAxios as axios } from "../../axiosInstance.jsx";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export function MemberList() {

@@ -20,7 +20,7 @@ export function Navbar() {
       >
         HOME
       </Box>
-      {account.isAdmin() && (
+      {account.isLoggedIn() && (
         <Box
           onClick={() => navigate("/write")}
           cursor={"pointer"}
@@ -44,7 +44,7 @@ export function Navbar() {
           {account.nickName}
         </Box>
       )}
-      {account.isLoggedIn() && (
+      {account.isAdmin() && (
         <Box
           onClick={() => navigate("/member/list")}
           cursor={"pointer"}

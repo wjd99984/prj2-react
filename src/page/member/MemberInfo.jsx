@@ -15,7 +15,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { customAxios as axios } from "../../axiosInstance.jsx";
+import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { LoginContext } from "../../component/LoginProvider.jsx";
 
@@ -31,7 +31,11 @@ export function MemberInfo() {
 
   useEffect(() => {
     axios
-      .get(`/api/member/${id}`)
+      .get(`/api/member/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((res) => setMember(res.data))
       .catch((err) => {
         if (err.response.status === 404) {
@@ -57,6 +61,9 @@ export function MemberInfo() {
 
     axios
       .delete(`/api/member/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
         data: { id, password },
       })
       .then(() => {

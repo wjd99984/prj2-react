@@ -7,7 +7,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
-import { customAxios as axios } from "../../axiosInstance.jsx";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../../component/LoginProvider.jsx";
 
