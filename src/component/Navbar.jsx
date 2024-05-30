@@ -91,6 +91,16 @@ export function Navbar() {
           로그아웃
         </Box>
       )}
+
+      <Box
+        onClick={() => navigate("/comment/list")}
+        cursor={"pointer"}
+        _hover={{
+          bgColor: "gray.200",
+        }}
+      >
+        댓글목록
+      </Box>
     </Flex>
   );
 }

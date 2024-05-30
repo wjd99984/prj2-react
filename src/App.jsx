@@ -13,6 +13,7 @@ import { MemberEdit } from "./page/member/MemberEdit.jsx";
 import { MemberLogin } from "./page/member/MemberLogin.jsx";
 import { LoginProvider } from "./component/LoginProvider.jsx";
 import axios from "axios";
+import { CommentList } from "./component/Comment/CommentList.jsx";
 
 // axios interceptor 설정
 axios.interceptors.request.use((config) => {
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
       { path: "member/:id", element: <MemberInfo /> },
       { path: "member/edit/:id", element: <MemberEdit /> },
       { path: "login", element: <MemberLogin /> },
+      { path: "comment/List", element: <CommentList /> },
     ],
   },
 ]);
