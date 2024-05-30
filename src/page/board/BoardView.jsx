@@ -47,7 +47,8 @@ export function BoardView() {
     axios
       .get(`/api/board/${id}`)
       .then((res) => {
-        res.data.board;
+        setBoard(res.data.board);
+        setLike(res.data.like);
       })
       .catch((err) => {
         if (err.response.status === 404) {
@@ -93,10 +94,9 @@ export function BoardView() {
   }
 
   function handleClickLike() {
-    if (!account.isLoggeIn()) {
+    if (!account.isLoggedIn()) {
       return;
     }
-
     setIsLikeProcessing(true);
     axios
       .put(`/api/board/like`, { boardId: board.id })
@@ -119,7 +119,7 @@ export function BoardView() {
             <Tooltip
               isDisabled={account.isLoggedIn()}
               hasArrow
-              label="로그인 해"
+              label="로그인 해주세요."
             >
               <Box onClick={handleClickLike} cursor="pointer" fontSize="3xl">
                 {like.like && <FontAwesomeIcon icon={fullHeart} />}
