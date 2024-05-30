@@ -37,8 +37,7 @@ export function BoardEdit() {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   useEffect(() => {
-    axios.get(`/api/board/${id}`).then(res)=>
-    setBoard((res.data.board));
+    axios.get(`/api/board/${id}`).then((res) => setBoard(res.data.board));
   }, []);
 
   function handleClickSave() {
